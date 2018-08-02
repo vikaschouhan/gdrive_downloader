@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 import requests
 import argparse
 import sys, re
@@ -31,7 +31,7 @@ def get_confirm_token(response):
 def save_response_content(response, destination):
     CHUNK_SIZE = 32768
 
-    print "Saving to {}".format(destination)
+    print("Saving to {}".format(destination))
     with open(destination, "wb") as f:
         for chunk in response.iter_content(CHUNK_SIZE):
             if chunk: # filter out keep-alive new chunks
@@ -48,9 +48,9 @@ if __name__ == "__main__":
     args = prsr.parse_args()
 
     if not args.__dict__["url"]:
-        print "--url is requied."
+        print("--url is requied.")
         if not args.__dict__["ofile"]:
-            print "--ofile is required."
+            print("--ofile is required.")
         # endif
         sys.exit(-1)
     # endif
@@ -59,7 +59,7 @@ if __name__ == "__main__":
     url_patt = r'drive\.google\.com\/open\?id=([\w]+)'
     s_obj    = re.search(url_patt, args.__dict__["url"])
     if not s_obj:
-        print '--url expected in this form https://drive.google.com/open?id=FILE_ID'
+        print('--url expected in this form https://drive.google.com/open?id=FILE_ID')
         sys.exit(-1)
     # endif
     download_file_from_google_drive(s_obj.groups()[0], args.__dict__["ofile"])
